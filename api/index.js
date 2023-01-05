@@ -9,12 +9,17 @@
 const PORT = process.env.PORT || 3001;
 ///using koa
 
-const koa = require('koa');
-const Router = require("koa-router");
-const bodyParser = require('koa-bodyparser');
+// const koa = require('koa');
+import koa from "koa";
+// const Router = require("koa-router");
+import Router from "koa-router";
+import bodyParser from "koa-bodyparser";
+// const bodyParser = require('koa-bodyparser');
+
 
 //Importing the routes
-const rulesRoutes = require('./routes/index');
+import apiRoutes from './routes/index.js';
+// const rulesRoutes = require('./routes/index');
 
 //Start app
 const app = new koa();
@@ -23,7 +28,7 @@ const app = new koa();
 app.use(bodyParser());
 
 //Registering the routes
-app.use(rulesRoutes.routes()).use(rulesRoutes.allowedMethods());
+app.use(apiRoutes.routes()).use(apiRoutes.allowedMethods());
 
 
 
