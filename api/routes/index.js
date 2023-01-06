@@ -4,8 +4,8 @@ import Engine, {formatValue} from 'publicodes';
 import Router from 'koa-router';
 import * as ctx from "express";
 // const Router = require('koa-router');
-import rules from '../doc/modele-social-file.js';
-
+// import rules from '../doc/modele-social-file.js';
+import rules from 'modele-social';
 
 
 
@@ -21,9 +21,16 @@ apiRoutes.get('/rules', async ctx=>{
     // const rules = new Rules();
     const allRules = new Engine(rules);
     // ctx.body = Object.keys(allRules.baseContext.parsedRules);
-    ctx.body = Object.keys(allRules.getParsedRules());
+    // ctx.body = Object.keys(allRules.getParsedRules());
     // ctx.body = allRules;
-    console.log(allRules);
+
+    ctx.body = Object.entries(allRules).forEach(
+        ([key, value]) => console.log(key, value)
+    );
+
+
+
+    // console.log(allRules);
     });
 
 
@@ -36,7 +43,7 @@ apiRoutes.get(
     '/rules/:ruleName',   async (ctx) => {
         const allRules = new Engine(rules);
         let data = await allRules.getRule(ctx.params.ruleName)
-            ctx.body = data;
+        ctx.body = data;
         return data;
 
 
