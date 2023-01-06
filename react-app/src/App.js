@@ -21,8 +21,8 @@ function App() {
 
     return (
 		<div className="App">
-			<header className="App-header">
-				<p></p>
+			{/*<header className="App-header">*/}
+				<h1>Publicodes</h1>
 				{/*<a*/}
 				{/*	className="App-link"*/}
 				{/*	href="https://publi.codes"*/}
@@ -31,7 +31,7 @@ function App() {
 				{/*>*/}
 				{/*	Voir la documentation*/}
 				{/*</a>*/}
-			</header>
+			{/*</header>*/}
 			<Doc />
 		</div>
 

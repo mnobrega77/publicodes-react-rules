@@ -27,6 +27,7 @@ const app = new koa();
 //Using bodyParser
 app.use(bodyParser());
 
+
 //Registering the routes
 app.use(apiRoutes.routes()).use(apiRoutes.allowedMethods());
 

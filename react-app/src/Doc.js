@@ -13,7 +13,7 @@ export default function Doc() {
 
 
     // const logger = useMemo(() => new Logger(), [rules])
-    const engine = new Engine(rules);
+    const engine = new Publicodes(rules);
 
     if (!engine) {
         return 'Chargement des règles de calculs en cours...'
