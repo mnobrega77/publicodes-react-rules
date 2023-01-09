@@ -6,6 +6,7 @@ import * as ctx from "express";
 // const Router = require('koa-router');
 // import rules from '../doc/modele-social-file.js';
 import rules from 'modele-social';
+import { koaMiddleware as publicodesAPI } from '@publicodes/api'
 
 
 
@@ -16,22 +17,21 @@ const apiRoutes = new Router({
 })
 
 
+
 //GET requests
 apiRoutes.get('/rules', async ctx=>{
     // const rules = new Rules();
     const allRules = new Engine(rules);
+
     // ctx.body = Object.keys(allRules.baseContext.parsedRules);
     // ctx.body = Object.keys(allRules.getParsedRules());
     // ctx.body = allRules;
 
-    ctx.body = Object.entries(allRules).forEach(
-        ([key, value]) => console.log(key, value)
-    );
+    ctx.body = Object.keys(allRules.getParsedRules());
 
-
-
-    // console.log(allRules);
     });
+
+
 
 
 // apiRoutes.get('/rules/:rule', async (ctx) => {
