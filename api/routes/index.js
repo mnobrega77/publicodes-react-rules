@@ -21,13 +21,37 @@ const apiRoutes = new Router({
 //GET requests
 apiRoutes.get('/rules', async ctx=>{
     // const rules = new Rules();
-    const allRules = new Engine(rules);
+    // const allRules = new Engine(rules);
+    const engine = new Engine(rules);
+    const items = Object.values(engine.context.parsedRules).filter(
+        (rule) => rule.title !== "$SITUATION"
+    );
+    // Object.entries(items).forEach(([key, value]) => {
+    //     console.log(`${key}: ${value}`)
+    // });
 
-    // ctx.body = Object.keys(allRules.baseContext.parsedRules);
+    const result = [];
+    items.forEach(obj => {
+        const { title, description, rawNode, ...rawNodeProps } = obj;
+
+        result.push({
+            title,
+            description,
+            ...rawNode,
+            ...rawNodeProps
+
+        });
+    });
+
+
     // ctx.body = Object.keys(allRules.getParsedRules());
-    // ctx.body = allRules;
 
-    ctx.body = Object.keys(allRules.getParsedRules());
+
+    // ctx.body = Object.keys(allRules.getParsedRules());
+    // ctx.body = items;
+    // result from array of objects
+    ctx.body = result;
+    console.log(result)
 
     });
 

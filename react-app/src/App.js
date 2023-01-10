@@ -1,16 +1,31 @@
 import './App.css';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom'
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { RulePage, RuleLink, getDocumentationSiteMap } from 'publicodes-react'
 
 import Doc from "./Doc";
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 
 function App() {
-	const [data, setData] = React.useState(null);
 
-	React.useEffect(() => {
+	const [data, setData] = useState(null);
+	const [rule, setRule ] = useState({});
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+
+	const onClickHandle = (item) => {
+		setShow(true);
+		setRule(item);
+		console.log(item, show);
+	};
+
+	useEffect(() => {
 		fetch("/api/rules")
 			.then((res) => res.json())
 			.then((data) => {
@@ -20,20 +35,27 @@ function App() {
 	}, []);
 
     return (
-		<div className="App">
-			{/*<header className="App-header">*/}
-				<h1>Publicodes</h1>
-				{/*<a*/}
-				{/*	className="App-link"*/}
-				{/*	href="https://publi.codes"*/}
-				{/*	target="_blank"*/}
-				{/*	rel="noopener noreferrer"*/}
-				{/*>*/}
-				{/*	Voir la documentation*/}
-				{/*</a>*/}
-			{/*</header>*/}
-			<Doc />
-		</div>
+    	<>
+		<Container className="App">
+				<h2 className={'p-2'}>Publicodes</h2>
+			<Row className="row">
+				<Col lg md={12}>
+						{
+							data && Object.values(data).map((item, index) =>(
+								<>
+									<span className={'d-block'}>
+										<p>{item.title}</p>
+										<Button variant="info" size={'sm'} onClick={() => { onClickHandle(item)} }>Documentation</Button>
+									</span>
+								</>
+							))
+						}
+				</Col>
+			</Row>
+
+			</Container>
+			<Doc rule={rule} show={show} handleClose={() => {handleClose()} }/>
+		</>
 
     );
 }

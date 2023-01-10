@@ -5,20 +5,25 @@
 // const PORT = process.env.PORT || 3001;
 // const app = express();
 
+import Engine, {formatValue} from 'publicodes';
+import { koaMiddleware as publicodesAPI } from '@publicodes/api'
+import rules from 'modele-social';
 
 const PORT = process.env.PORT || 3001;
 ///using koa
 
 // const koa = require('koa');
 import koa from "koa";
+import pagination from "koa-pagination-v2"
 // const Router = require("koa-router");
 import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
 // const bodyParser = require('koa-bodyparser');
 
 
-//Importing the routes
+//Importing my routes
 import apiRoutes from './routes/index.js';
+
 // const rulesRoutes = require('./routes/index');
 
 //Start app
@@ -27,9 +32,21 @@ const app = new koa();
 //Using bodyParser
 app.use(bodyParser());
 
+//importing publicodes api routes
+
+const router = new Router();
+const newApiRoutes = publicodesAPI(new Engine(rules));
+router.use('/api', newApiRoutes)
+
+
+// keep this before all routes that will use pagination
+app.use(pagination({defaultLimit: 20, maximumLimit: 50}));
+
 
 //Registering the routes
-app.use(apiRoutes.routes()).use(apiRoutes.allowedMethods());
+app.use(router.routes()).use(router.allowedMethods());
+
+
 
 
 
