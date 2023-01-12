@@ -19,15 +19,15 @@ export default function Doc(props) {
 
                 <Modal.Body>
                     <p>{props.rule.nom}</p>
-                    {
-                        props.rule.rawNode.description && (
-                            <span>
-                        <p className={'text-center'}>Description</p>
-                        <p>{props.rule.rawNode.description}</p>
-                        <p>{props.rule["par défaut"]}</p>
-                    </span>
-                        )
-                    }
+                    {/*{*/}
+                    {/*    props.rule.rawNode.description && (*/}
+                    {/*        <span>*/}
+                    {/*    <p className={'text-center'}>Description</p>*/}
+                    {/*    <p>{props.rule.rawNode.description}</p>*/}
+                    {/*    <p>{props.rule["par défaut"]}</p>*/}
+                    {/*</span>*/}
+                    {/*    )*/}
+                    {/*}*/}
                     {
                         props.rule.avec && (
                             <span>
